@@ -1,0 +1,13 @@
+  private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                        
+ 
+        model.removeRow(jTable1.getSelectedRow());
+         int sum = 0;
+         for(int a=0; a<jTable1.getRowCount(); a++)
+        {
+            
+            sum = sum + Integer.parseInt(jTable1.getValueAt(a, 3).toString());
+            
+        }
+        txttotal.setText(Integer.toString(sum));
+        
+    }
