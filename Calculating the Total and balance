@@ -1,0 +1,64 @@
+public void sales()
+    {
+        int lastid =0;
+        try {
+            String total = txttotal.getText();
+            String bal = txtbal.getText();
+            String pay = txtpay.getText();
+            String query = "insert into sales(subtotal,pay,bal)values(?,?,?)";
+            pst = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+            pst.setString(1, total);
+            pst.setString(2, pay);
+             pst.setString(3, bal);
+             pst.executeUpdate();
+             ResultSet rs = pst.getGeneratedKeys();
+            
+            if(rs.next())
+            {
+                lastid = rs.getInt(1);
+            }
+            int row = jTable1.getRowCount();
+            String query1 = "insert into sales_product(sales_id,prodname,price,qty,total)values(?,?,?,?,?)";
+            pst1 = con.prepareStatement(query1);
+            
+            String prodname = "";
+            int price;
+            int qty;
+            int tot = 0;
+ 
+            for(int i=0; i<jTable1.getRowCount(); i++)
+                    {
+                        prodname = (String)jTable1.getValueAt(i, 0);
+                         price = (int)jTable1.getValueAt(i, 1);
+                         qty = (int)jTable1.getValueAt(i, 2);
+                         tot = (int)jTable1.getValueAt(i, 3);
+                        
+                         pst1.setInt(1,lastid);
+                          pst1.setString(2,prodname);
+                          pst1.setInt(3,price);
+                          pst1.setInt(4,qty);
+                          pst1.setInt(5,tot);
+                          pst1.executeUpdate();
+                        
+                    }
+            
+            JOptionPane.showMessageDialog(this, "Saless Completeeeeddddddd");
+            HashMap a = new HashMap();
+            a.put("invo", lastid);
+ 
+            try {
+                JasperDesign jdesign = JRXmlLoader.load("C:\\Users\\kobinath\\Documents\\NetBeansProjects\\Pizza\\src\\Pizza\\report1.jrxml");
+                JasperReport jreport = JasperCompileManager.compileReport(jdesign);
+                
+                JasperPrint jprint = JasperFillManager.fillReport(jreport, a, con);
+                JasperViewer.viewReport(jprint);
+ 
+            } catch (JRException ex) {
+                Logger.getLogger(pizza.class.getName()).log(Level.SEVERE, null, ex);
+            }
+ 
+        } catch (SQLException ex) {
+            Logger.getLogger(pizza.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        
+    }
