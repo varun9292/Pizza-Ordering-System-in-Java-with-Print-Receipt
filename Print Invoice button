@@ -1,0 +1,15 @@
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        // TODO add your handling code here:
+        
+        int tot = Integer.parseInt(txttotal.getText());
+        int pay = Integer.parseInt(txtpay.getText());
+        
+        int bal = pay - tot;
+        
+        txtbal.setText(String.valueOf(bal));
+        
+        
+        sales();
+        
+        
+    }
