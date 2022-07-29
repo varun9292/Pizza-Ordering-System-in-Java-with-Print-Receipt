@@ -1,0 +1,18 @@
+
+DefaultTableModel model;
+String item;
+int price;
+Connection con;
+PreparedStatement pst;
+PreparedStatement pst1;
+public void Connect()
+    {
+        try {
+            Class.forName("com.mysql.jdbc.Driver"); // Register the mysql driver
+            con = DriverManager.getConnection("jdbc:mysql://localhost/pizza","root","");    
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+           ex.printStackTrace();
+        }
+    }
