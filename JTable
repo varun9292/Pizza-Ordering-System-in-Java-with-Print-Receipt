@@ -1,0 +1,46 @@
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                        
+ 
+        if(lblsmall.isSelected() == true)
+        {
+            item = "Small";
+            price = 200;
+        }
+        else if(lblmed.isSelected() == true)
+        {
+            item = "Medium";
+            price = 300;
+        }
+           else if(lbllarge.isSelected() == true)
+        {
+            item = "Large";
+            price = 400;
+        }
+         else if(lblexlarge.isSelected() == true)
+        {
+            item = "ExLarge";
+            price = 700;
+        }
+        
+        int qty = Integer.parseInt(txtqty.getValue().toString());
+        int tot = qty * price;
+        
+        model = (DefaultTableModel)jTable1.getModel();
+        
+        model.addRow(new Object[]
+                
+        {
+            item,
+            price,
+            qty,
+            tot
+            
+        });
+        int sum = 0;
+        
+        for(int a=0; a<jTable1.getRowCount(); a++)
+        {
+            sum = sum + Integer.parseInt(jTable1.getValueAt(a, 3).toString());
+        }
+        txttotal.setText(Integer.toString(sum));
+        
+}
